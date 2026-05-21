@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabitFlow - Build Better Habits</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-fire"></i>
+                <span>HabitFlow</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active"><i class="fas fa-home"></i></a>
+                <a href="#social" class="nav-link"><i class="fas fa-users"></i></a>
+                <a href="#add" class="nav-link add-habit-link"><i class="fas fa-plus-circle"></i></a>
+                <a href="#profile" class="nav-link"><i class="fas fa-user"></i></a>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="stats-card">
+                <h3>📊 Your Stats</h3>
+                <div class="stat-row">
+                    <span>Current Streak</span>
+                    <span class="stat-value" id="currentStreak">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Total Completed</span>
+                    <span class="stat-value" id="totalCompleted">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Habits Tracked</span>
+                    <span class="stat-value" id="habitsTracked">0</span>
+                </div>
+                <div class="progress-ring">
+                    <svg width="120" height="120">
+                        <circle cx="60" cy="60" r="54" class="progress-bg"></circle>
+                        <circle cx="60" cy="60" r="54" class="progress-bar" id="progressCircle"></circle>
+                    </svg>
+                    <div class="progress-text">
+                        <span id="progressPercent">0%</span>
+                        <p>Weekly Goal</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-card">
+                <h4>Filter</h4>
+                <button class="filter-btn active" data-filter="all">All Habits</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Tab -->
+            <section id="home" class="tab-content active">
+                <div class="header-section">
+                    <h1>Good Morning! 👋</h1>
+                    <p id="motivationalText">Let's build some amazing habits today!</p>
+                </div>
+
+                <!-- Today's Habits -->
+                <section class="today-section">
+                    <h2>📅 Today's Habits</h2>
+                    <div id="todayHabits" class="habits-grid">
+                        <!-- Habits will be added here -->
+                    </div>
+                </section>
+
+                <!-- Upcoming Week -->
+                <section class="upcoming-section">
+                    <h2>📈 This Week</h2>
+                    <div class="week-chart" id="weekChart">
+                        <!-- Chart will be rendered here -->
+                    </div>
+                </section>
+
+                <!-- Completed Today -->
+                <section class="completed-section">
+                    <h2>✅ Completed Today</h2>
+                    <div id="completedToday" class="completed-list">
+                        <!-- Completed habits will show here -->
+                    </div>
+                </section>
+            </section>
+
+            <!-- Social Tab -->
+            <section id="social" class="tab-content">
+                <h1>👥 Friends & Leaderboard</h1>
+
+                <div class="social-container">
+                    <!-- Leaderboard -->
+                    <div class="leaderboard-card">
+                        <h3>🏆 Global Leaderboard</h3>
+                        <div id="leaderboard" class="leaderboard-list">
+                            <!-- Leaderboard will be rendered here -->
+                        </div>
+                    </div>
+
+                    <!-- Friend Activity -->
+                    <div class="activity-card">
+                        <h3>👨‍👩‍👧‍👦 Friends Activity</h3>
+                        <div id="friendsActivity" class="activity-feed">
+                            <!-- Friend activities will show here -->
+                        </div>
+                    </div>
+
+                    <!-- Challenges -->
+                    <div class="challenges-card">
+                        <h3>🎯 Active Challenges</h3>
+                        <div id="challenges" class="challenges-list">
+                            <!-- Challenges will show here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Habit Modal -->
+            <section id="add" class="add-habit-section">
+                <h1>➕ Add New Habit</h1>
+                <div class="add-habit-form">
+                    <div class="form-group">
+                        <label>Habit Name</label>
+                        <input type="text" id="habitName" placeholder="e.g., Morning Meditation, Exercise, Reading">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="habitDescription" placeholder="Why do you want this habit?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Icon</label>
+                        <div class="icon-selector" id="iconSelector">
+                            <div class="icon-option" data-icon="🏃">🏃 Exercise</div>
+                            <div class="icon-option" data-icon="📚">📚 Reading</div>
+                            <div class="icon-option" data-icon="🧘">🧘 Meditation</div>
+                            <div class="icon-option" data-icon="💻">💻 Coding</div>
+                            <div class="icon-option" data-icon="🍎">🍎 Healthy Eating</div>
+                            <div class="icon-option" data-icon="💤">💤 Sleep</div>
+                            <div class="icon-option" data-icon="🎵">🎵 Music</div>
+                            <div class="icon-option" data-icon="🧠">🧠 Learning</div>
+                            <div class="icon-option" data-icon="✍️">✍️ Writing</div>
+                            <div class="icon-option" data-icon="🎨">🎨 Creative</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Frequency</label>
+                        <select id="habitFrequency">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Goal (times per week)</label>
+                        <input type="number" id="habitGoal" min="1" max="7" value="7">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Color Theme</label>
+                        <div class="color-selector">
+                            <div class="color-option" data-color="#6366f1"></div>
+                            <div class="color-option" data-color="#ec4899"></div>
+                            <div class="color-option" data-color="#f59e0b"></div>
+                            <div class="color-option" data-color="#10b981"></div>
+                            <div class="color-option" data-color="#06b6d4"></div>
+                            <div class="color-option" data-color="#8b5cf6"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn-cancel" id="cancelBtn">Cancel</button>
+                        <button class="btn-create" id="createHabitBtn">Create Habit</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Tab -->
+            <section id="profile" class="tab-content">
+                <h1>👤 Your Profile</h1>
+                <div class="profile-section">
+                    <div class="profile-header">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=christochinni" alt="Profile" class="profile-pic">
+                        <div class="profile-info">
+                            <h2>Christochinni Samuel</h2>
+                            <p>@christochinnisamuel</p>
+                            <p class="bio">💪 Building better habits, one day at a time</p>
+                        </div>
+                    </div>
+
+                    <div class="achievements-grid">
+                        <div class="achievement">
+                            <i class="fas fa-fire"></i>
+                            <span>7 Day Streak</span>
+                        </div>
+                        <div class="achievement">
+                            <i class="fas fa-award"></i>
+                            <span>Habit Master</span>
+                        </div>
+                        <div class="achievement">
+                            <i class="fas fa-star"></i>
+                            <span>Social Butterfly</span>
+                        </div>
+                        <div class="achievement">
+                            <i class="fas fa-trophy"></i>
+                            <span>Top Contributor</span>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>⚙️ Settings</h3>
+                        <div class="setting-item">
+                            <span>Notifications</span>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <span>Daily Reminder</span>
+                            <input type="time" value="08:00">
+                        </div>
+                        <div class="setting-item">
+                            <span>Private Profile</span>
+                            <label class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="notification-toast"></div>
+
+    <!-- Confetti Animation -->
+    <canvas id="confetti"></canvas>
+
+    <script src="app.js"></script>
+</body>
+</html>
